@@ -16,7 +16,7 @@ textVar.set('Select a folder')
 
 
 label = tk.Label(window, textvariable=textVar,
-font=('Calibri 15 bold'))
+font=('Calibri 10 bold'), background='White')
 label.pack(pady=20)
 
 
@@ -30,12 +30,14 @@ def on_click_btn1():
 def sanitize_folder_contents(initial_obj):
     filtered_obj  = list(filter(lambda x: x.lower().endswith('.csv'), initial_obj))
     filtered_obj_str = "\n".join(filtered_obj)
-    if len(filtered_obj) == 0:
+    filtered_obj_len = len(filtered_obj)
+
+    if filtered_obj_len == 0:
         btn2.config(state='disabled')
-        return 'no CSV files detected inside the selected folder'
+        return 'No CSV files detected inside the selected folder.'
     else:
         btn2.config(state='active')
-        return "Contents: \n" + filtered_obj_str
+        return "Contents (" + str(filtered_obj_len) + " file(s)): \n" + filtered_obj_str
 
 
 def on_click_btn2():
