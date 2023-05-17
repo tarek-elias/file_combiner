@@ -25,15 +25,17 @@ def on_click_btn1():
     folder_selected  = filedialog.askdirectory()
     folder_content = (os.listdir(folder_selected))
 
-    textVar.set('You have selected the below folder path: \n' + folder_selected + "\n Contents: \n" + sanitizeFolderContents(folder_content))
+    textVar.set('You have selected the below folder path: \n' + folder_selected + "\n " + sanitize_folder_contents(folder_content))
     
-def sanitizeFolderContents(initial_obj):
-    filtered_obj  = list(filter(lambda x: x.endswith('.CSV'), initial_obj))
-    filtered_obj_str = "".join(filtered_obj)
+def sanitize_folder_contents(initial_obj):
+    filtered_obj  = list(filter(lambda x: x.lower().endswith('.csv'), initial_obj))
+    filtered_obj_str = "\n".join(filtered_obj)
     if len(filtered_obj) == 0:
-        return 'no CSV detected inside the selected folder'
+        btn2.config(state='disabled')
+        return 'no CSV files detected inside the selected folder'
     else:
-        return filtered_obj_str
+        btn2.config(state='active')
+        return "Contents: \n" + filtered_obj_str
 
 
 def on_click_btn2():
@@ -47,6 +49,7 @@ btn1.pack(pady=20)
 
 btn2 = tk.Button(window, text="Combine CSV files", command=on_click_btn2)
 btn2.pack(pady=40)
+btn2.config(state='disabled')
 
 
 
